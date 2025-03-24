@@ -4,10 +4,10 @@ import sys
 
 
 intrinsics = {
-    "fx": 1000.0,
-    "fy": 1000.0,
-    "cx": 320.0,
-    "cy": 240.0
+    "fl_x": 1000.0,
+    "fl_y": 1000.0,
+    "cx": 400.0,
+    "cy": 400.0
 }
 
 # Función para modificar el nombre de los archivos en el JSON
