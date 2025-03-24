@@ -13,7 +13,7 @@
 source /fhome/aceballos/venvs/nerfstudio/bin/activate
 
 # Ejecutar el comando de entrenamiento de NeRFStudio
-ns-train nerfacto --data /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/datasets/dnerf/trex/transforms_train.json --output-dir /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/results/trex
+ns-train nerfacto --data /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/datasets/dnerf/trex/transforms_train.json
 
 # Desactivar el entorno virtual
 deactivate
