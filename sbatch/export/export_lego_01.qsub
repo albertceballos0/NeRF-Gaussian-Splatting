@@ -13,6 +13,6 @@
 source /fhome/aceballos/venvs/nerfstudio/bin/activate
 
 # Ejecutar el comando de entrenamiento de NeRFStudio
-ns-export pointcloud --load-config /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/outputs/test_01/instant-ngp/2025-03-25_161054/config.yml --output-dir exports/pcd/ --num-points 1000000 --remove-outliers True --normal-method open3d --save-world-frame False 
+ns-export pointcloud --load-config /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/outputs/test_01/instant-ngp/2025-03-25_161054/config.yml --output-dir /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/exports/pcd/ --num-points 1000000 --remove-outliers True --normal-method open3d --save-world-frame False 
 # Desactivar el entorno virtual
 deactivate
