@@ -13,6 +13,6 @@
 source /fhome/aceballos/venvs/nerfstudio/bin/activate
 
 # Ejecutar el comando de entrenamiento de NeRFStudio
-ns-render camera-path --load-config /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/outputs/test_01/test_01/nerfacto/2025-03-24_183909/config.yml --camera-path-filename /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/datasets/test_01/camera_paths/2025-03-24-18-29-48.json --output-path /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/renders/test_01/2025-03-24-18-29-48.mp4
+ns-render camera-path --load-config /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/outputs/test_01/nerfacto/2025-03-24_183909/config.yml --camera-path-filename /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/datasets/test_01/camera_paths/2025-03-24-18-29-48.json --output-path /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/renders/test_01/2025-03-24-18-29-48.mp4
 # Desactivar el entorno virtua
 deactivate
