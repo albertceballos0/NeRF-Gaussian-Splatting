@@ -13,7 +13,7 @@
 source /fhome/aceballos/venvs/nerfstudio/bin/activate
 
 # Ejecutar el comando de entrenamiento de NeRFStudio
-ns-train instant-ngp --data /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/datasets/dnerf/lego/transforms_train.json --output-dir /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/outputs/lego
+ns-train instant-ngp --data /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/datasets/dnerf/lego/transforms_train.json --output-dir /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/outputs/lego dnerf-data
 
 # Desactivar el entorno virtual
 deactivate
