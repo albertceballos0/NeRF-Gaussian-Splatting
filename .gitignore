@@ -1,0 +1,5 @@
+
+
+
+# Ignore specific checkpoint files
+outputs/test_01/test_01/nerfacto/**/nerfstudio_models/*.ckpt
