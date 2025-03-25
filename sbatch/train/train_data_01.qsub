@@ -13,7 +13,7 @@
 source /fhome/aceballos/venvs/nerfstudio/bin/activate
 
 # Ejecutar el comando de entrenamiento de NeRFStudio
-ns-train instant-ngp --vis viewer+wandb --machine.num-devices 1 --pipeline.datamanager.train-num-rays-per-batch 4096 --data /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/datasets/test_01 --output-dir /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/outputs
+ns-train instant-ngp --machine.num-devices 1 --pipeline.datamanager.train-num-rays-per-batch 4096 --data /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/datasets/test_01 --output-dir /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/outputs
 
 # Desactivar el entorno virtual
 deactivate
