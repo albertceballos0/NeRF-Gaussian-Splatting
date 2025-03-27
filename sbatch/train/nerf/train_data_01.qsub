@@ -6,14 +6,14 @@
 #SBATCH -p tfg               # Usar la cola TFG
 #SBATCH --mem 8192           
 #SBATCH --gres gpu:1         
-#SBATCH -o trex_%u_%j.out  
-#SBATCH -e trex_%u_%j.err  
+#SBATCH -o test_01_%u_%j.out  
+#SBATCH -e test_01_%u_%j.err  
 
 # Activar el entorno virtual
 source /fhome/aceballos/venvs/nerfstudio/bin/activate
 
 # Ejecutar el comando de entrenamiento de NeRFStudio
-ns-train instant-ngp --vis viewer --machine.num-devices 1 --pipeline.datamanager.train-num-rays-per-batch 4096 --data /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/datasets/test_01 --output-dir /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/outputs
+ns-train instant-ngp --data /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/datasets/test_01 --output-dir /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/outputs
 
 # Desactivar el entorno virtual
 deactivate
