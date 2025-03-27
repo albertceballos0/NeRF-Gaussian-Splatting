@@ -13,7 +13,7 @@
 source /fhome/aceballos/venvs/nerfstudio/bin/activate
 
 # Ejecutar el comando de entrenamiento de NeRFStudio
-ns-export gaussian-splat --load-config /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/outputs/lego/gaussian_splatting/lego/splatfacto/2025-03-27_173621 --output-dir /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/exports/lego/gaussian_splatting 
+ns-export gaussian-splat --load-config /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/outputs/lego/gaussian_splatting/lego/splatfacto/2025-03-27_173621/config.yml --output-dir /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/exports/lego/gaussian_splatting 
 
 
 deactivate
