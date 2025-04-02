@@ -12,7 +12,7 @@
 eval "$(conda shell.bash hook)"
 conda activate tfg
 
-ns-train instant-ngp --data /hhome/aceballosa/tfg/NeRF-Gaussian-Splatting/datasets/dnerf/lego  --output-dir /hhome/aceballosa/tfg/NeRF-Gaussian-Splatting/outputs/lego/nerf/instant_ngp dnerf-data
+ns-train instant-ngp --data /hhome/aceballosa/NeRF-Gaussian-Splatting/datasets/dnerf/lego  --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/lego/nerf/instant_ngp dnerf-data
 
 # Desactivar el entorno virtual
 conda deactivate
