@@ -10,6 +10,7 @@
 #SBATCH -e lego_%u_%j.err  
 
 # Activar el entorno virtual
+conda init
 conda activate tfg
 
 ns-train instant-ngp --data /hhome/aceballosa/NeRF-Gaussian-Splatting/datasets/dnerf/lego  --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/lego/nerf/instant_ngp dnerf-data
