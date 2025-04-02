@@ -10,7 +10,8 @@
 
 # Activar el entorno virtual
 eval "$(conda shell.bash hook)"
-conda activate tfg# Ejecutar el comando de entrenamiento de NeRFStudio
+conda activate tfg
+
 ns-train instant-ngp --data /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/datasets/dnerf/lego  --output-dir /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/outputs/lego/nerf/instant_ngp dnerf-data
 
 # Desactivar el entorno virtual
