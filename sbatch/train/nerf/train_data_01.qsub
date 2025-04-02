@@ -10,10 +10,9 @@
 #SBATCH -e test_01_%u_%j.err  
 
 # Activar el entorno virtual
-source /fhome/aceballos/venvs/nerfstudio/bin/activate
-
+conda activate tfg  
 # Ejecutar el comando de entrenamiento de NeRFStudio
 ns-train instant-ngp --data /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/datasets/test_01 --output-dir /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/outputs/data_01/instant_ngp dnerf-data
 
 # Desactivar el entorno virtual
-deactivate
+conda deactivate tfg
