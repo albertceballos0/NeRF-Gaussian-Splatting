@@ -2,7 +2,7 @@
 #SBATCH -N 1                 
 #SBATCH -D /tmp              
 #SBATCH -t 2-00:00           
-#SBATCH -p tfgm               # Usar la cola TFG
+#SBATCH -p dcca40               # Usar la cola TFG
 #SBATCH --mem 8192           
 #SBATCH --gres gpu:1         
 #SBATCH -o lego_%u_%j.out  
