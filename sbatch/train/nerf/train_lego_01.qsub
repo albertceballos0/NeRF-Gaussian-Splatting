@@ -1,10 +1,11 @@
 #!/bin/bash
-#SBATCH -N 1                 
+#SBATCH -n 4 # Number of cores
+#SBATCH -N 1 # Ensure that all cores are on one machine
 #SBATCH -D /tmp              
 #SBATCH -t 2-00:00           
 #SBATCH -p dcca40               # Usar la cola TFG
-#SBATCH --mem 8192           
-#SBATCH --gres gpu:1         
+#SBATCH --mem 8192 # 8GB memory
+#SBATCH --gres gpu:1 # Request of 1 gpu    
 #SBATCH -o lego_%u_%j.out  
 #SBATCH -e lego_%u_%j.err  
 
