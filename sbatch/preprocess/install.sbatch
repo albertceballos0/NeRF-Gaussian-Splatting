@@ -10,10 +10,10 @@
 #SBATCH -e trex_%u_%j.err  
 
 # Activar el entorno virtual
-conda activate tfg
+source /hhome/aceballosa/tfg/bin/activate
 # Ejecutar el comando de entrenamiento de NeRFStudio
-
+pip install nerfstudio 
 pip install git+https://github.com/NVlabs/tiny-cuda-nn/#subdirectory=bindings/torch
 
 # Desactivar el entorno virtua
-conda deactivate
+deactivate
