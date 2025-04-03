@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH -n 4 # Number of cores
-#SBATCH -N 1 # Ensure that all cores are on one machine
+#SBATCH -n 4                 
+#SBATCH -N 1                 
 #SBATCH -D /tmp              
 #SBATCH -t 2-00:00           
 #SBATCH -p dcca40               # Usar la cola TFG
-#SBATCH --mem 8192 # 8GB memory
-#SBATCH --gres gpu:1 # Request of 1 gpu    
+#SBATCH --mem 8192           
+#SBATCH --gres gpu:1         
 #SBATCH -o lego_%u_%j.out  
 #SBATCH -e lego_%u_%j.err  
 
@@ -13,7 +13,8 @@
 
 
 source /hhome/aceballosa/tfg/bin/activate
-ns-train instant-ngp --data /hhome/aceballosa/NeRF-Gaussian-Splatting/datasets/dnerf/lego  --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/lego/nerf/instant_ngp dnerf-data
+
+ns-train instant-ngp --data /hhome/aceballosa/NeRF-Gaussian-Splatting/datasets/dnerf/lego  --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/lego/nerf/ dnerf-data
 
 # Desactivar el entorno virtual
 deactivate
