@@ -11,9 +11,9 @@
 
 # Activar el entorno virtual
 
-conda init
-conda activate nerfstudio
 
+conda activate nerfstudio
+CUDA_VISIBLE_DEVICES=0 
 ns-train instant-ngp --data /hhome/aceballosa/NeRF-Gaussian-Splatting/datasets/dnerf/lego  --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/lego/nerf/ dnerf-data
 
 # Desactivar el entorno virtual
