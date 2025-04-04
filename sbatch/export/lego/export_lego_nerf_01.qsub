@@ -1,17 +1,19 @@
 #!/bin/bash
+#SBATCH -n 4                 
 #SBATCH -N 1                 
 #SBATCH -D /tmp              
 #SBATCH -t 2-00:00           
-#SBATCH -p tfgm               # Usar la cola TFG
+#SBATCH -p dcca40               # Usar la cola TFG
 #SBATCH --mem 8192           
 #SBATCH --gres gpu:1         
-#SBATCH -o lego_export_%u_%j.out  
-#SBATCH -e lego_export_%u_%j.err  
+#SBATCH -o lego_%u_%j.out  
+#SBATCH -e lego_%u_%j.err  
+ 
 
 # Activar el entorno virtual
-source /fhome/aceballos/venvs/nerfstudio/bin/activate
+conda activate nerfstudio
 
 # Ejecutar el comando de entrenamiento de NeRFStudio
-ns-export pointcloud --load-config /export/fhome/aceballos/tfg/NeRF-Gaussian-Splatting/outputs/lego/lego/instant-ngp/2025-03-27_161759/config.yml --output-dir /fhome/aceballos/tfg/NeRF-Gaussian-Splatting/exports/lego/lego_nerf_01 --num-points 1000000 --remove-outliers True --normal-method open3d --save-world-frame False
-# Desactivar el entorno virtual
-deactivate
+ns-export pointcloud --load-config /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/lego/nerf/lego/nerfacto/2025-04-04_200704/config.yml --output-dir exports/pcd/ --num-points 1000000 --remove-outliers True --normal-method open3d --save-world-frame False # Desactivar el entorno virtual
+
+conda deactivate
