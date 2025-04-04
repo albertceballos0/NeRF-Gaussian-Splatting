@@ -1,20 +1,17 @@
 #!/bin/bash
-#SBATCH -n 4                 
 #SBATCH -N 1                 
 #SBATCH -D /tmp              
 #SBATCH -t 2-00:00           
-#SBATCH -p dcca40               # Usar la cola TFG
+#SBATCH -p tfg               # Usar la cola TFG
 #SBATCH --mem 8192           
 #SBATCH --gres gpu:1         
 #SBATCH -o lego_%u_%j.out  
 #SBATCH -e lego_%u_%j.err  
 
 # Activar el entorno virtual
-
-
 conda activate nerfstudio
-
-ns-train instant-ngp --data /hhome/aceballosa/NeRF-Gaussian-Splatting/datasets/dnerf/lego  --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/lego/nerf/ dnerf-data
+# Ejecutar el comando de entrenamiento de NeRFStudio
+ns-train splatfacto --data /hhome/aceballosa/NeRF-Gaussian-Splatting/datasets/dnerf/lego  --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/lego/gaussian_splatting/ dnerf-data
 
 # Desactivar el entorno virtual
 conda deactivate
