@@ -15,5 +15,5 @@ conda activate nerfstudio
 
 # Ejecutar el comando de entrenamiento de NeRFStudio
 ns-export pointcloud --load-config /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/lego/nerf/lego/nerfacto/2025-04-04_200704/config.yml --output-dir /export/hhome/aceballosa/NeRF-Gaussian-Splatting/exports/lego/pcd --num-points 1000000 --remove-outliers True --normal-method open3d --save-world-frame False # Desactivar el entorno virtual
-ns-export poisson --load-config /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/lego/nerf/lego/nerfacto/2025-04-04_200704/config.yml --output-dir /export/hhome/aceballosa/NeRF-Gaussian-Splatting/exports/lego/pcd 
+ns-export tsdf --load-config /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/lego/nerf/lego/nerfacto/2025-04-04_200704/config.yml --output-dir /export/hhome/aceballosa/NeRF-Gaussian-Splatting/exports/lego/pcd 
 conda deactivate
