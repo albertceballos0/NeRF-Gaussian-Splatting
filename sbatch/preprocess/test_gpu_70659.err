@@ -1,0 +1,10 @@
+
+CondaError: Run 'conda init' before 'conda activate'
+
+/export/hhome/aceballosa/tfg/lib/python3.8/site-packages/nerfstudio/field_components/activations.py:32: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  @custom_fwd(cast_inputs=torch.float32)
+/export/hhome/aceballosa/tfg/lib/python3.8/site-packages/nerfstudio/field_components/activations.py:39: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, g):
+
+CondaError: Run 'conda init' before 'conda deactivate'
+
