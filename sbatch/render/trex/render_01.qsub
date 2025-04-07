@@ -1,0 +1,16 @@
+#!/bin/bash
+#SBATCH -n 4                 
+#SBATCH -N 1                 
+#SBATCH -D /tmp              
+#SBATCH -t 2-00:00           
+#SBATCH -p dcca40               # Usar la cola TFG
+#SBATCH --mem 8192           
+#SBATCH --gres gpu:1         
+#SBATCH -o mutant_%u_%j.out  
+#SBATCH -e mutant_%u_%j.err  
+
+# Activar el entorno virtual
+conda activate nerfstudio
+# Ejecutar el comando de entrenamiento de NeRFStudio
+ns-render camera-path --load-config /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/trex/nerf/trex/nerfacto/2025-04-07_174651/config.yml --camera-path-filename /hhome/aceballosa/NeRF-Gaussian-Splatting/datasets/dnerf/trex/camera_paths/2025-04-07-17-47-00.json --output-path renders/trex/2025-04-07-17-47-00.mp4
+conda deactivate

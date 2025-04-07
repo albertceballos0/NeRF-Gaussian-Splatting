@@ -1,0 +1,19 @@
+#!/bin/bash
+#SBATCH -n 4                 
+#SBATCH -N 1                 
+#SBATCH -D /tmp              
+#SBATCH -t 2-00:00           
+#SBATCH -p dcca40               # Usar la cola TFG
+#SBATCH --mem 8192           
+#SBATCH --gres gpu:1         
+#SBATCH -o trex_%u_%j.out  
+#SBATCH -e trex_%u_%j.err  
+ 
+
+# Activar el entorno virtual
+conda activate nerfstudio
+
+# Ejecutar el comando de entrenamiento de NeRFStudio
+ns-export pointcloud --load-config /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/trex/nerf/trex/nerfacto/2025-04-07_174651/config.yml --output-dir exports/pcd/ --num-points 1000000 --remove-outliers True --normal-method open3d --save-world-frame False ns-export tsdf --load-config /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/lego/nerf/lego/nerfacto/2025-04-04_200704/config.yml --output-dir /export/hhome/aceballosa/NeRF-Gaussian-Splatting/exports/lego/pcd 
+ns-export poisson --load-config /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/trex/nerf/trex/nerfacto/2025-04-07_174651/config.yml --output-dir exports/mesh/ --target-num-faces 50000 --num-pixels-per-side 2048 --num-points 1000000 --remove-outliers True --normal-method open3d 
+conda deactivate
