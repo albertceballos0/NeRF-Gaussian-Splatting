@@ -14,7 +14,7 @@
 conda activate nerfstudio
 
 # Ejecutar el comando de entrenamiento de NeRFStudio
-ns-export pointcloud --load-config /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/mutant/nerf/mutant/nerfacto/2025-04-07_175101/config.yml --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/exports/mutant/pcd --num-points 1000000 --remove-outliers True --normal-method open3d --save-world-frame False ns-export tsdf --load-config /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/lego/nerf/lego/nerfacto/2025-04-04_200704/config.yml --output-dir /export/hhome/aceballosa/NeRF-Gaussian-Splatting/exports/lego/pcd 
+ns-export pointcloud --load-config /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/mutant/nerf/mutant/nerfacto/2025-04-07_175101/config.yml --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/exports/mutant/pcd --num-points 1000000 --remove-outliers True --normal-method open3d --save-world-frame False 
 ns-export poisson --load-config /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/mutant/nerf/mutant/nerfacto/2025-04-07_175101/config.yml --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/exports/mutant/poisson --target-num-faces 50000 --num-pixels-per-side 2048 --num-points 1000000 --remove-outliers True --normal-method open3d 
 
 conda deactivate
