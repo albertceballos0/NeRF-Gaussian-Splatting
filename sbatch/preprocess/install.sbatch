@@ -14,7 +14,6 @@ conda activate nerfstudio
 
 
 # Ejecutar el comando de entrenamiento de NeRFStudio
-pip install git+https://github.com/NVlabs/tiny-cuda-nn/#subdirectory=bindings/torch
-
+pip install ninja git+https://github.com/NVlabs/tiny-cuda-nn/#subdirectory=bindings/torch
 # Desactivar el entorno virtua
 conda deactivate
