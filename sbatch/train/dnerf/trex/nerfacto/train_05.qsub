@@ -1,0 +1,41 @@
+#!/bin/bash
+#SBATCH -n 4
+#SBATCH -N 1
+#SBATCH -D /tmp
+#SBATCH -t 2-00:00
+#SBATCH -p dcca40
+#SBATCH --mem 8192
+#SBATCH --gres gpu:1
+#SBATCH -o train_%u_%j.out
+#SBATCH -e train_%u_%j.err
+
+conda activate nerfstudio
+
+# Entrenamiento
+ns-train nerfacto --data /hhome/aceballosa/NeRF-Gaussian-Splatting/datasets/dnerf/trex --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/dnerf/trex/nerfacto/train_05 dnerf-data 
+
+# Encontrar el último timestamp generado
+OUTPUT_MODEL_PATH="/hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/dnerf/trex/nerfacto/train_05/trex/nerfacto"
+NEW_TIMESTAMP=$(ls -d "$OUTPUT_MODEL_PATH"/*/ | sort -n | tail -n 1)
+NEW_TIMESTAMP=$(basename "$NEW_TIMESTAMP")
+
+# Crear automáticamente el script de exportación
+if [ -d "$OUTPUT_MODEL_PATH/$NEW_TIMESTAMP" ]; then
+  echo "Generando script de exportación para $NEW_TIMESTAMP"
+  python /hhome/aceballosa/NeRF-Gaussian-Splatting/setup_nerf_project.py export --experiment trex/nerfacto/${NEW_TIMESTAMP} --auto
+  
+  echo "Lanzando exportación directamente..."
+  
+  CONFIG_PATH="/hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/dnerf/trex/nerfacto/train_05/trex/nerfacto/${NEW_TIMESTAMP}/config.yml"
+  EXPORT_PATH="/hhome/aceballosa/NeRF-Gaussian-Splatting/exports/trex/nerfacto/${NEW_TIMESTAMP}"
+
+  mkdir -p "$EXPORT_PATH"
+
+  ns-export pointcloud --load-config "$CONFIG_PATH" --output-dir "$EXPORT_PATH"     --num-points 1000000 --remove-outliers True --normal-method open3d --save-world-frame False
+
+  ns-export poisson --load-config "$CONFIG_PATH" --output-dir "$EXPORT_PATH"     --num-points 1000000 --remove-outliers True --normal-method open3d
+fi
+
+
+conda deactivate
+
