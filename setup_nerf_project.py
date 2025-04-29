@@ -7,7 +7,7 @@ from pathlib import Path
 DATA_BASE = "/hhome/aceballosa/NeRF-Gaussian-Splatting/datasets"
 OUTPUT_BASE = "/hhome/aceballosa/NeRF-Gaussian-Splatting/outputs"
 EXPORT_BASE = "/hhome/aceballosa/NeRF-Gaussian-Splatting/exports"
-TRAIN_BASE = "/hhome/aceballosa/NeRF-Gaussian-Splatting/sbatch/train"
+TRAIN_BASE = "./sbatch/train"
 SBATCH_DIR = "./sbatch"
 SCRIPT_PATH = "/hhome/aceballosa/NeRF-Gaussian-Splatting/setup_nerf_project.py"
 CONDA_ENV = "nerfstudio"
@@ -81,10 +81,18 @@ conda deactivate
 """
 
 # --- FUNCIONES SIN BBDD ---
-
 def get_next_number(base_path, prefix):
+    # Asegúrate de que la ruta base existe
+    if not os.path.exists(base_path):
+        os.makedirs(base_path)
+
+    # Obtener todos los archivos que empiezan con el prefijo
     existing = [f for f in os.listdir(base_path) if f.startswith(prefix)]
-    numbers = [int(f[len(prefix):]) for f in existing if f[len(prefix):].isdigit()]
+    
+    # Filtrar solo los números
+    numbers = [int(f[len(prefix):].split('.')[0]) for f in existing if f[len(prefix):].split('.')[0].isdigit()]
+    
+    # Si no hay archivos previos, devuelve 1
     return max(numbers) + 1 if numbers else 1
 
 def create_train_script(args):
@@ -97,6 +105,7 @@ def create_train_script(args):
     output_dir = Path(TRAIN_BASE) / dataset / model
     output_dir.mkdir(parents=True, exist_ok=True)
     train_number = get_next_number(output_dir, "train_")
+    print(f"Entrenamiento número: {train_number}")
     train_name = f"train_{train_number:02d}"
 
     data_path = os.path.join(DATA_BASE, dataset)
