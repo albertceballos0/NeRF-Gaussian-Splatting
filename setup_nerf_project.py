@@ -45,7 +45,7 @@ echo "Generando script de exportación para $NEW_TIMESTAMP"
 python3 {script_path} export --dataset {dataset} --model {model} --train-number "$NEW_TIMESTAMP" --auto
 
 # Lanzar exportación directamente
-EXPORT_PATH="{export_base}/{dataset}/{model}/$NEW_TIMESTAMP"
+EXPORT_PATH="{export_base}/{train_name}/{dataset}/{model}/$NEW_TIMESTAMP"
 mkdir -p "$EXPORT_PATH"
 
 ns-export pointcloud --load-config "$CONFIG_PATH" --output-dir "$EXPORT_PATH" \
@@ -109,7 +109,7 @@ def create_train_script(args):
     train_name = f"train_{train_number:02d}"
 
     data_path = os.path.join(DATA_BASE, dataset)
-    output_path = os.path.join(OUTPUT_BASE)
+    output_path = Path(OUTPUT_BASE) / train_name
     sbatch_path = Path(TRAIN_BASE) / dataset / model
     sbatch_path.mkdir(parents=True, exist_ok=True)
     train_script_path = sbatch_path / f"{train_name}.qsub"
@@ -141,10 +141,15 @@ def create_export_script(args):
     next_export_number = get_next_number(export_dir, "export_")
     export_name = f"export_{next_export_number:02d}"
 
-    config_path = os.path.join(OUTPUT_BASE, dataset, model, train_number, "config.yml")
-    if not os.path.exists(config_path):
-        print(f"❌ Error: El archivo de configuración no existe: {config_path}")
-        return
+    config_path = None
+    for root, dirs, files in os.walk(os.path.join(OUTPUT_BASE, dataset, model)):
+      if "config.yml" in files and train_number in root:
+        config_path = os.path.join(root, "config.yml")
+        break
+
+    if not config_path:
+      print(f"❌ Error: No se encontró el archivo de configuración para el entrenamiento {train_number} en {os.path.join(OUTPUT_BASE, dataset, model)}")
+      return
 
     export_path = os.path.join(EXPORT_BASE, dataset, model, train_number)
     export_script_path = export_dir / f"{export_name}.qsub"
