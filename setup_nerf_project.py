@@ -1,3 +1,5 @@
+# === SCRIPT PRINCIPAL: setup_nerf_project.py ===
+
 import argparse
 import os
 from pathlib import Path
@@ -42,7 +44,7 @@ fi
 
 # Crear automáticamente el script de exportación
 echo "Generando script de exportación para $NEW_TIMESTAMP"
-python3 {script_path} export --dataset {dataset} --model {model} --train-number "$NEW_TIMESTAMP" 
+python3 {script_path} export --dataset {dataset} --model {model} --train-number "$NEW_TIMESTAMP"
 
 # Lanzar exportación directamente
 EXPORT_PATH="{export_base}/{train_name}/{dataset}/{model}/$NEW_TIMESTAMP"
@@ -56,7 +58,6 @@ ns-export poisson --load-config "$CONFIG_PATH" --output-dir "$EXPORT_PATH" \
 
 conda deactivate
 """
-
 
 SBATCH_EXPORT_TEMPLATE = """#!/bin/bash
 #SBATCH -n 4
@@ -80,32 +81,22 @@ ns-export poisson --load-config {config_path} --output-dir {export_path} \
 conda deactivate
 """
 
-# --- FUNCIONES SIN BBDD ---
 def get_next_number(base_path, prefix):
-    # Asegúrate de que la ruta base existe
     if not os.path.exists(base_path):
         os.makedirs(base_path)
-
-    # Obtener todos los archivos que empiezan con el prefijo
     existing = [f for f in os.listdir(base_path) if f.startswith(prefix)]
-    
-    # Filtrar solo los números
     numbers = [int(f[len(prefix):].split('.')[0]) for f in existing if f[len(prefix):].split('.')[0].isdigit()]
-    
-    # Si no hay archivos previos, devuelve 1
     return max(numbers) + 1 if numbers else 1
 
 def create_train_script(args):
-    dataset = args.dataset.split("/")[-1]
+    dataset = os.path.basename(args.dataset)
     model = args.model
-    data_type = "dnerf-data" if args.data_type == "dnerf" else ""
+    data_type = "--data-parser-name dnerf" if args.data_type == "dnerf" else ""
     extra_args = args.extra_train_args
 
-    # Número siguiente de entrenamiento
     output_dir = Path(TRAIN_BASE) / dataset / model
     output_dir.mkdir(parents=True, exist_ok=True)
     train_number = get_next_number(output_dir, "train_")
-    print(f"Entrenamiento número: {train_number}")
     train_name = f"train_{train_number:02d}"
 
     data_path = os.path.join(DATA_BASE, dataset)
@@ -137,19 +128,18 @@ def create_export_script(args):
     export_dir = Path(SBATCH_DIR) / "export" / dataset / model / train_number
     export_dir.mkdir(parents=True, exist_ok=True)
 
-    # Buscar siguiente número de export
     next_export_number = get_next_number(export_dir, "export_")
     export_name = f"export_{next_export_number:02d}"
 
     config_path = None
     for root, dirs, files in os.walk(os.path.join(OUTPUT_BASE, dataset, model)):
-      if "config.yml" in files and train_number in root:
-        config_path = os.path.join(root, "config.yml")
-        break
+        if "config.yml" in files and train_number in root:
+            config_path = os.path.join(root, "config.yml")
+            break
 
     if not config_path:
-      print(f"❌ Error: No se encontró el archivo de configuración para el entrenamiento {train_number} en {os.path.join(OUTPUT_BASE, dataset, model)}")
-      return
+        print(f"❌ Error: No se encontró el archivo de configuración para el entrenamiento {train_number}")
+        return
 
     export_path = os.path.join(EXPORT_BASE, dataset, model, train_number)
     export_script_path = export_dir / f"{export_name}.qsub"
@@ -159,9 +149,9 @@ def create_export_script(args):
         config_path=config_path,
         export_path=export_path,
         num_points=args.num_points,
-        remove_outliers="True" if args.remove_outliers else "False",
+        remove_outliers=str(args.remove_outliers),
         normal_method=args.normal_method,
-        save_world_frame="True" if args.save_world_frame else "False",
+        save_world_frame=str(args.save_world_frame),
         extra_export_args=args.extra_export_args
     )
 
@@ -181,11 +171,11 @@ def main():
     export_parser = subparsers.add_parser("export", help="Crear export de un entrenamiento")
     export_parser.add_argument("--dataset", required=True)
     export_parser.add_argument("--model", required=True)
-    export_parser.add_argument("--train-number",type=str, required=True)
+    export_parser.add_argument("--train-number", type=str, required=True)
     export_parser.add_argument("--num-points", type=int, default=1000000)
-    export_parser.add_argument("--remove-outliers", type=bool, default=True)
+    export_parser.add_argument("--remove-outliers", action="store_true")
     export_parser.add_argument("--normal-method", default="open3d")
-    export_parser.add_argument("--save-world-frame", type=bool, default=False)
+    export_parser.add_argument("--save-world-frame", action="store_true")
     export_parser.add_argument("--extra-export-args", default="")
 
     args = parser.parse_args()
@@ -196,6 +186,51 @@ def main():
         create_export_script(args)
     else:
         parser.print_help()
+
+if __name__ == "__main__":
+    main()
+
+
+# === SCRIPT DE COMBINACIONES: generate_combinations.py ===
+
+import argparse
+from subprocess import call
+
+COMBINATIONS = [
+    (64, 1000, True, 100, 1024, 1024),
+    (64, 1000, True, 100, 1024, 2048),
+    # ... (recorta o amplía aquí si es necesario)
+]
+
+def call_train_script(dataset, model, data_type, num_samples, max_iters, cones, steps, rays_batch, eval_rays):
+    extra_train_args = (
+        f"--pipeline.model.num_samples_per_ray={num_samples} "
+        f"--max_num_iterations={max_iters} "
+        f"--pipeline.model.cones_enable={str(cones).lower()} "
+        f"--pipeline.model.steps_per_eval_batch={steps} "
+        f"--pipeline.model.train_num_rays_per_batch={rays_batch} "
+        f"--pipeline.model.eval_num_rays_per_batch={eval_rays}"
+    )
+    command = [
+        "python3", "setup_nerf_project.py", "create",
+        "--dataset", dataset,
+        "--model", model,
+        "--data-type", data_type,
+        "--extra-train-args", extra_train_args
+    ]
+    print(f"\n[RUNNING] {' '.join(command)}")
+    call(command)
+
+def main():
+    parser = argparse.ArgumentParser(description="Generador de Scripts de Entrenamiento NeRF")
+    parser.add_argument("--dataset", required=True)
+    parser.add_argument("--model", required=True)
+    parser.add_argument("--data-type", choices=["dnerf", ""], default="dnerf")
+    args = parser.parse_args()
+
+    for i, (num_samples, max_iters, cones, steps, rays_batch, eval_rays) in enumerate(COMBINATIONS, 1):
+        print(f"\nCombinación {i}: ns={num_samples}, it={max_iters}, cone={cones}, steps={steps}, rb={rays_batch}, eval={eval_rays}")
+        call_train_script(args.dataset, args.model, args.data_type, num_samples, max_iters, cones, steps, rays_batch, eval_rays)
 
 if __name__ == "__main__":
     main()
