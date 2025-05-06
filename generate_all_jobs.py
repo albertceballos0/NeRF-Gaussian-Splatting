@@ -36,7 +36,13 @@ def call_train_script(dataset, model, data_type, extra_train_args, num_samples, 
         "--dataset", dataset,
         "--model", model,
         "--data-type", data_type,
-        "--extra-train-args", f"--num_samples_per_ray {num_samples} --max_num_iterations {max_iters} --cones_enable {cones} --steps_per_eval_batch {steps} --train_num_rays_per_batch {rays_batch} --eval_num_rays {eval_rays}"
+        "--extra-train-args", (
+            f"--max-num-iterations {max_iters} "
+            f"--pipeline.model.cones-enable {cones} "
+            f"--trainer.steps-per-eval-batch {steps} "
+            f"--pipeline.datamanager.train-num-rays-per-batch {rays_batch} "
+            f"--pipeline.datamanager.eval-num-rays-per-batch {eval_rays}"
+        )
     ]
     print(f"Ejecutando: {' '.join(command)}")
     call(command)

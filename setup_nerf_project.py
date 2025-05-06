@@ -42,7 +42,7 @@ fi
 
 # Crear automáticamente el script de exportación
 echo "Generando script de exportación para $NEW_TIMESTAMP"
-python3 {script_path} export --dataset {dataset} --model {model} --train-number "$NEW_TIMESTAMP" --auto
+python3 {script_path} export --dataset {dataset} --model {model} --train-number "$NEW_TIMESTAMP" 
 
 # Lanzar exportación directamente
 EXPORT_PATH="{export_base}/{train_name}/{dataset}/{model}/$NEW_TIMESTAMP"
