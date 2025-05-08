@@ -12,7 +12,7 @@
 conda activate nerfstudio
 
 # Entrenamiento
-ns-train nerfacto --data /hhome/aceballosa/NeRF-Gaussian-Splatting/datasets/trex --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_07 --data-parser-name dnerf --max-num-iterations 2000 --pipeline.model.cones-enable True --steps-per-eval-batch 100 --pipeline.datamanager.train-num-rays-per-batch 2048 --pipeline.datamanager.eval-num-rays-per-batch 1024
+ns-train nerfacto --data /hhome/aceballosa/NeRF-Gaussian-Splatting/datasets/trex --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_07 --data-parser-name dnerf --num_samples_per_ray 256 --max_num_iterations 1000 --cones_enable True --train_num_rays_per_batch 1024
 
 # Encontrar el último timestamp generado
 OUTPUT_MODEL_PATH="/hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_07/trex/nerfacto"

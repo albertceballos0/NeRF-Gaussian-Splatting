@@ -12,10 +12,10 @@
 conda activate nerfstudio
 
 # Entrenamiento
-ns-train nerfacto --data /hhome/aceballosa/NeRF-Gaussian-Splatting/datasets/trex --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_20 --data-parser-name dnerf --max-num-iterations 1000 --pipeline.model.cones-enable False --steps-per-eval-batch 100 --pipeline.datamanager.train-num-rays-per-batch 2048 --pipeline.datamanager.eval-num-rays-per-batch 2048
+ns-train vanilla_nerf --data /hhome/aceballosa/NeRF-Gaussian-Splatting/datasets/trex --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_03 --data-parser-name dnerf --num_samples_per_ray 64 --max_num_iterations 1000 --cones_enable False --train_num_rays_per_batch 2048
 
 # Encontrar el último timestamp generado
-OUTPUT_MODEL_PATH="/hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_20/trex/nerfacto"
+OUTPUT_MODEL_PATH="/hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_03/trex/vanilla_nerf"
 NEW_TIMESTAMP=$(ls -d "$OUTPUT_MODEL_PATH"/*/ | sort -n | tail -n 1)
 NEW_TIMESTAMP=$(basename "$NEW_TIMESTAMP")
 
@@ -28,10 +28,10 @@ fi
 
 # Crear automáticamente el script de exportación
 echo "Generando script de exportación para $NEW_TIMESTAMP"
-python3 /hhome/aceballosa/NeRF-Gaussian-Splatting/setup_nerf_project.py export --dataset trex --model nerfacto --train-number "$NEW_TIMESTAMP"
+python3 /hhome/aceballosa/NeRF-Gaussian-Splatting/setup_nerf_project.py export --dataset trex --model vanilla_nerf --train-number "$NEW_TIMESTAMP"
 
 # Lanzar exportación directamente
-EXPORT_PATH="/hhome/aceballosa/NeRF-Gaussian-Splatting/exports/train_20/trex/nerfacto/$NEW_TIMESTAMP"
+EXPORT_PATH="/hhome/aceballosa/NeRF-Gaussian-Splatting/exports/train_03/trex/vanilla_nerf/$NEW_TIMESTAMP"
 mkdir -p "$EXPORT_PATH"
 
 ns-export pointcloud --load-config "$CONFIG_PATH" --output-dir "$EXPORT_PATH"   --num-points 1000000 --remove-outliers True --normal-method open3d --save-world-frame False
