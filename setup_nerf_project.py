@@ -91,7 +91,7 @@ def get_next_number(base_path, prefix):
 def create_train_script(args):
     dataset = os.path.basename(args.dataset)
     model = args.model
-    data_type = "--data-parser-name dnerf" if args.data_type == "dnerf" else ""
+    data_type = "dnerf-data" if args.data_type == "dnerf" else ""
     extra_args = args.extra_train_args
 
     output_dir = Path(TRAIN_BASE) / dataset / model
