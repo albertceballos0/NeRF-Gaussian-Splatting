@@ -89,6 +89,7 @@ def get_next_number(base_path, prefix):
     return max(numbers) + 1 if numbers else 1
 
 def create_train_script(args):
+    data_path = args.dataset
     dataset = os.path.basename(args.dataset)
     model = args.model
     data_type = "dnerf-data" if args.data_type == "dnerf" else ""
@@ -99,7 +100,7 @@ def create_train_script(args):
     train_number = get_next_number(output_dir, "train_")
     train_name = f"train_{train_number:02d}"
 
-    data_path = os.path.join(DATA_BASE, dataset)
+    data_path = os.path.join(DATA_BASE, data_path)
     output_path = Path(OUTPUT_BASE) / train_name
     sbatch_path = Path(TRAIN_BASE) / dataset / model
     sbatch_path.mkdir(parents=True, exist_ok=True)
