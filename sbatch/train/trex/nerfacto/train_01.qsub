@@ -12,7 +12,7 @@
 conda activate nerfstudio
 
 # Entrenamiento
-ns-train nerfacto --data /hhome/aceballosa/NeRF-Gaussian-Splatting/datasets/dnerf/trex --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_01 --vis NONE dnerf-data
+ns-train nerfacto --data /hhome/aceballosa/NeRF-Gaussian-Splatting/datasets/dnerf/trex --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_01 dnerf-data
 
 # Encontrar el último timestamp generado
 OUTPUT_MODEL_PATH="/hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_01/trex/nerfacto"
@@ -25,10 +25,6 @@ if [ ! -f "$CONFIG_PATH" ]; then
   echo "❌ No se encontró config.yml en $CONFIG_PATH"
   exit 1
 fi
-
-# Crear automáticamente el script de exportación
-echo "Generando script de exportación para $NEW_TIMESTAMP"
-python3 /hhome/aceballosa/NeRF-Gaussian-Splatting/setup_nerf_project.py export --dataset trex --model nerfacto --train-number "$NEW_TIMESTAMP"
 
 # Lanzar exportación directamente
 EXPORT_PATH="/hhome/aceballosa/NeRF-Gaussian-Splatting/exports/train_01/trex/nerfacto/$NEW_TIMESTAMP"
