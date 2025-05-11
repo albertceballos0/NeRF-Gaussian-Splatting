@@ -9,7 +9,7 @@ CONES_OPTIONS = [True, False]
 RAYS_BATCH_OPTIONS = [1024, 2048]
 
 # --- FUNCIONES ---
-def call_train_script(dataset, model, data_type, extra_train_args, num_samples, max_iters, cones, rays_batch):
+def call_train_script(dataset, model, data_type, num_samples, max_iters, cones, rays_batch):
     command = [
         "python3", "setup_nerf_project.py", "create",
         "--dataset", dataset,
@@ -46,7 +46,7 @@ def main():
         num_samples, max_iters, cones, rays_batch = combo
         print(f"\nGenerando entrenamiento {i} con parámetros:")
         print(f"num_samples={num_samples}, max_iters={max_iters}, cones={cones}, rays_batch={rays_batch}")
-        call_train_script(args.dataset, args.model, args.data_type, "", num_samples, max_iters, cones, rays_batch)
+        call_train_script(args.dataset, args.model, args.data_type, num_samples, max_iters, cones, rays_batch)
 
 if __name__ == "__main__":
     main()
