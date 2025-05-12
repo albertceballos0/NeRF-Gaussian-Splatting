@@ -28,7 +28,7 @@ SBATCH_TRAIN_TEMPLATE = """#!/bin/bash
 conda activate nerfstudio
 
 # Entrenamiento
-ns-train {model} --data {data_path} --output-dir {output_path} {data_type} {extra_train_args}
+ns-train {model} --data {data_path} --output-dir {output_path} {extra_train_args} {data_type}
 
 conda deactivate
 """

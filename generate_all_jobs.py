@@ -15,6 +15,7 @@ def call_train_script(dataset, model, data_type, num_samples, max_iters, cones, 
         "--dataset", dataset,
         "--model", model,
         "--data-type", data_type,
+        "--extra-train-args", f"--num_samples_per_ray {num_samples} --max_num_iterations {max_iters} --cones_enable {cones} --train_num_rays_per_batch {rays_batch}"
     ]
     print(f"Ejecutando: {' '.join(command)}")
     call(command)
