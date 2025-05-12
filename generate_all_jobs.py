@@ -2,23 +2,30 @@ import argparse
 import random
 from subprocess import call
 
-# --- RANGOS DE HIPERPARÁMETROS ---
-NUM_SAMPLES_OPTIONS = [64, 128, 256]
-MAX_ITERS_OPTIONS = [1000, 2000]
-CONES_OPTIONS = [True, False]
-RAYS_BATCH_OPTIONS = [1024, 2048]
+LR_OPTIONS = [1e-4, 5e-4, 1e-3]
+COARSE_SAMPLES_OPTIONS = [32, 64, 96]
+IMPORTANCE_SAMPLES_OPTIONS = [32, 64, 128]
+TEMPORAL_DISTORTION_OPTIONS = [True, False]
 
-# --- FUNCIONES ---
-def call_train_script(dataset, model, data_type, num_samples, max_iters, cones, rays_batch):
+def call_train_script(dataset, model, data_type, lr, coarse_samples, importance_samples, temporal_distortion):
+    extra_args = (
+        f"--optimizers.fields.optimizer.lr {lr} "
+        f"--pipeline.model.num-coarse-samples {coarse_samples} "
+        f"--pipeline.model.num-importance-samples {importance_samples} "
+        f"--pipeline.model.enable-temporal-distortion {temporal_distortion}"
+    )
+
     command = [
         "python3", "setup_nerf_project.py", "create",
         "--dataset", dataset,
         "--model", model,
         "--data-type", data_type,
-        "--extra-train-args", f"--num_samples_per_ray {num_samples} --max_num_iterations {max_iters} --cones_enable {cones} --train_num_rays_per_batch {rays_batch}"
+        "--extra-train-args", extra_args
     ]
-    print(f"Ejecutando: {' '.join(command)}")
+
+    print(f"🔁 Ejecutando:\n{' '.join(command)}\n")
     call(command)
+
 
 def main():
     parser = argparse.ArgumentParser(description="Random Search de Scripts de Entrenamiento NeRF")
@@ -33,10 +40,10 @@ def main():
 
     while i < args.samples:
         combo = (
-            random.choice(NUM_SAMPLES_OPTIONS),
-            random.choice(MAX_ITERS_OPTIONS),
-            random.choice(CONES_OPTIONS),
-            random.choice(RAYS_BATCH_OPTIONS),
+            random.choice(LR_OPTIONS),
+            random.choice(COARSE_SAMPLES_OPTIONS),
+            random.choice(IMPORTANCE_SAMPLES_OPTIONS),
+            random.choice(TEMPORAL_DISTORTION_OPTIONS),
         )
         # Evitar duplicados
         if combo in used_combinations:

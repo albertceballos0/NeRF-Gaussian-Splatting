@@ -12,6 +12,6 @@
 conda activate nerfstudio
 
 # Entrenamiento
-ns-train nerfacto --data /hhome/aceballosa/NeRF-Gaussian-Splatting/datasets/dnerf/trex --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_05 dnerf-data 
+ns-train nerfacto --data /hhome/aceballosa/NeRF-Gaussian-Splatting/datasets/dnerf/trex --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_05 --optimizers.fields.optimizer.lr 0.001 --pipeline.model.num-coarse-samples 64 --pipeline.model.num-importance-samples 64 --pipeline.model.enable-temporal-distortion True dnerf-data
 
 conda deactivate
