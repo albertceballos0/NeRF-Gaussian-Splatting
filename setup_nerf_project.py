@@ -30,32 +30,6 @@ conda activate nerfstudio
 # Entrenamiento
 ns-train {model} --data {data_path} --output-dir {output_path} {data_type} {extra_train_args}
 
-# Encontrar el último timestamp generado
-OUTPUT_MODEL_PATH="{output_path}/{dataset}/{model}"
-NEW_TIMESTAMP=$(ls -d "$OUTPUT_MODEL_PATH"/*/ | sort -n | tail -n 1)
-NEW_TIMESTAMP=$(basename "$NEW_TIMESTAMP")
-
-# Comprobar si existe el config.yml
-CONFIG_PATH="$OUTPUT_MODEL_PATH/$NEW_TIMESTAMP/config.yml"
-if [ ! -f "$CONFIG_PATH" ]; then
-  echo "❌ No se encontró config.yml en $CONFIG_PATH"
-  exit 1
-fi
-
-# Crear automáticamente el script de exportación
-echo "Generando script de exportación para $NEW_TIMESTAMP"
-python3 {script_path} export --dataset {dataset} --model {model} --train-number "$NEW_TIMESTAMP"
-
-# Lanzar exportación directamente
-EXPORT_PATH="{export_base}/{train_name}/{dataset}/{model}/$NEW_TIMESTAMP"
-mkdir -p "$EXPORT_PATH"
-
-ns-export pointcloud --load-config "$CONFIG_PATH" --output-dir "$EXPORT_PATH" \
-  --num-points 1000000 --remove-outliers True --normal-method open3d --save-world-frame False
-
-ns-export poisson --load-config "$CONFIG_PATH" --output-dir "$EXPORT_PATH" \
-  --num-points 1000000 --remove-outliers True --normal-method open3d
-
 conda deactivate
 """
 
@@ -112,7 +86,6 @@ def create_train_script(args):
         output_path=output_path,
         data_type=data_type,
         extra_train_args=extra_args,
-        dataset=dataset,
         script_path=SCRIPT_PATH,
         export_base=EXPORT_BASE,
         train_number=train_number,

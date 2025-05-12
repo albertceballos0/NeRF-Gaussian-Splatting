@@ -12,6 +12,6 @@
 conda activate nerfstudio
 
 # Entrenamiento
-ns-train nerfacto --data /hhome/aceballosa/NeRF-Gaussian-Splatting/datasets/dnerf/trex --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_07 dnerf-data 
+ns-train vanilla-nerf --data /hhome/aceballosa/NeRF-Gaussian-Splatting/datasets/dnerf/trex --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_10 dnerf-data 
 
 conda deactivate

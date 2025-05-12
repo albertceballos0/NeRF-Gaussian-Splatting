@@ -12,30 +12,6 @@
 conda activate nerfstudio
 
 # Entrenamiento
-ns-train nerfacto --data /hhome/aceballosa/NeRF-Gaussian-Splatting/datasets/dnerf/trex --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_02 dnerf-data --num_samples_per_ray 64 --max_num_iterations 2000 --cones_enable False --train_num_rays_per_batch 1024
-
-# Encontrar el último timestamp generado
-OUTPUT_MODEL_PATH="/hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_02/trex/nerfacto"
-NEW_TIMESTAMP=$(ls -d "$OUTPUT_MODEL_PATH"/*/ | sort -n | tail -n 1)
-NEW_TIMESTAMP=$(basename "$NEW_TIMESTAMP")
-
-# Comprobar si existe el config.yml
-CONFIG_PATH="$OUTPUT_MODEL_PATH/$NEW_TIMESTAMP/config.yml"
-if [ ! -f "$CONFIG_PATH" ]; then
-  echo "❌ No se encontró config.yml en $CONFIG_PATH"
-  exit 1
-fi
-
-# Crear automáticamente el script de exportación
-echo "Generando script de exportación para $NEW_TIMESTAMP"
-python3 /hhome/aceballosa/NeRF-Gaussian-Splatting/setup_nerf_project.py export --dataset trex --model nerfacto --train-number "$NEW_TIMESTAMP"
-
-# Lanzar exportación directamente
-EXPORT_PATH="/hhome/aceballosa/NeRF-Gaussian-Splatting/exports/train_02/trex/nerfacto/$NEW_TIMESTAMP"
-mkdir -p "$EXPORT_PATH"
-
-ns-export pointcloud --load-config "$CONFIG_PATH" --output-dir "$EXPORT_PATH"   --num-points 1000000 --remove-outliers True --normal-method open3d --save-world-frame False
-
-ns-export poisson --load-config "$CONFIG_PATH" --output-dir "$EXPORT_PATH"   --num-points 1000000 --remove-outliers True --normal-method open3d
+ns-train nerfacto --data /hhome/aceballosa/NeRF-Gaussian-Splatting/datasets/dnerf/trex --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_02 dnerf-data 
 
 conda deactivate
