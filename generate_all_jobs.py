@@ -4,8 +4,8 @@ from subprocess import call
 
 LR_OPTIONS = [1e-4, 1e-3]
 COARSE_SAMPLES_OPTIONS = [32, 96]
-NUM_RAYS_PER_BATCH_OPTIONS = [1024, 8192, 16384]
-NUM_STEPS = [10000, 60000, 200000]
+NUM_RAYS_PER_BATCH_OPTIONS = [1024, 8192]
+NUM_STEPS = [10000, 200000]
 
 def call_train_script(dataset, model, data_type, lr, coarse_samples, num_rays_per_batch, num_iterations):
     extra_args = (
