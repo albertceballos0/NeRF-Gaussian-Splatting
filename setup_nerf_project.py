@@ -98,6 +98,7 @@ def create_train_script(args):
 def create_export_script(args):
     dataset = args.dataset
     model = args.model
+    train = args.train
     train_number = str(args.train_number)
     export_dir = Path(SBATCH_DIR) / "export" / dataset / model / train_number
     export_dir.mkdir(parents=True, exist_ok=True)
@@ -105,15 +106,8 @@ def create_export_script(args):
     next_export_number = get_next_number(export_dir, "export_")
     export_name = f"export_{next_export_number:02d}"
 
-    config_path = None
-    for root, dirs, files in os.walk(os.path.join(OUTPUT_BASE, dataset, model)):
-        if "config.yml" in files and train_number in root:
-            config_path = os.path.join(root, "config.yml")
-            break
-
-    if not config_path:
-        print(f"❌ Error: No se encontró el archivo de configuración para el entrenamiento {train_number}")
-        return
+    config_path = os.path.join(OUTPUT_BASE,train,  dataset, model, 'config.yml')
+    
 
     export_path = os.path.join(EXPORT_BASE, dataset, model, train_number)
     export_script_path = export_dir / f"{export_name}.qsub"
@@ -145,6 +139,7 @@ def main():
     export_parser = subparsers.add_parser("export", help="Crear export de un entrenamiento")
     export_parser.add_argument("--dataset", required=True)
     export_parser.add_argument("--model", required=True)
+    export_parser.add_argument("--train", required=True)
     export_parser.add_argument("--train-number", type=str, required=True)
     export_parser.add_argument("--num-points", type=int, default=1000000)
     export_parser.add_argument("--remove-outliers", action="store_true")
