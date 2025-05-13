@@ -11,8 +11,8 @@
 
 conda activate nerfstudio
 
-ns-export pointcloud --load-config /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_01/trex/vanilla-nerf/config.yml --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/exports/trex/vanilla-nerf/2025-05-12_202100   --num-points 1000000 --remove-outliers False --normal-method open3d --save-world-frame False 
+ns-export pointcloud --load-config /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_01/trex/vanilla-nerf/2025-05-12_202100/config.yml --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/exports/trex/vanilla-nerf/2025-05-12_202100   --num-points 1000000 --remove-outliers False --normal-method open3d --save-world-frame False 
 
-ns-export poisson --load-config /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_01/trex/vanilla-nerf/config.yml --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/exports/trex/vanilla-nerf/2025-05-12_202100   --num-points 1000000 --remove-outliers False --normal-method open3d 
+ns-export poisson --load-config /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_01/trex/vanilla-nerf/2025-05-12_202100/config.yml --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/exports/trex/vanilla-nerf/2025-05-12_202100   --num-points 1000000 --remove-outliers False --normal-method open3d 
 
 conda deactivate

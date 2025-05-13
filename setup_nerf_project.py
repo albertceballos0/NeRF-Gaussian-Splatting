@@ -106,7 +106,7 @@ def create_export_script(args):
     next_export_number = get_next_number(export_dir, "export_")
     export_name = f"export_{next_export_number:02d}"
 
-    config_path = os.path.join(OUTPUT_BASE,train,  dataset, model, 'config.yml')
+    config_path = os.path.join(OUTPUT_BASE,train,  dataset, model,train_number, 'config.yml')
     
 
     export_path = os.path.join(EXPORT_BASE, dataset, model, train_number)
