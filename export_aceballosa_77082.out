@@ -1,0 +1,44 @@
+Warning:
+Unable to load the following plugins:
+
+	libio_e57.so: libio_e57.so does not seem to be a Qt Plugin.
+
+Cannot load library /export/hhome/aceballosa/miniconda3/envs/nerfstudio/lib/python3.8/site-packages/pymeshlab/lib/plugins/libio_e57.so: (/lib/x86_64-linux-gnu/libp11-kit.so.0: undefined symbol: ffi_type_pointer, version LIBFFI_BASE_7.0)
+
+Setting up training dataset...
+Caching all 200 images.
+
+Setting up evaluation dataset...
+Caching all 20 images.
+
+Loading latest checkpoint from load_dir
+✅ Done loading checkpoint from 
+/hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_01/trex/vanilla-nerf/2025-05-12_202100/nerfstudio_models/step-00
+0349000.ckpt
+──────────────────────────────────────────────────────── Error ─────────────────────────────────────────────────────────
+                                        Could not find rgb in the model outputs                                         
+Please set --rgb_output_name to one of: dict_keys(['rgb_coarse', 'rgb_fine', 'accumulation_coarse', 'accumulation_fine',
+                                             'depth_coarse', 'depth_fine'])                                             
+☁ Computing Point Cloud ☁                                            0% --:--
+Warning:
+Unable to load the following plugins:
+
+	libio_e57.so: libio_e57.so does not seem to be a Qt Plugin.
+
+Cannot load library /export/hhome/aceballosa/miniconda3/envs/nerfstudio/lib/python3.8/site-packages/pymeshlab/lib/plugins/libio_e57.so: (/lib/x86_64-linux-gnu/libp11-kit.so.0: undefined symbol: ffi_type_pointer, version LIBFFI_BASE_7.0)
+
+Setting up training dataset...
+Caching all 200 images.
+
+Setting up evaluation dataset...
+Caching all 20 images.
+
+Loading latest checkpoint from load_dir
+✅ Done loading checkpoint from 
+/hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_01/trex/vanilla-nerf/2025-05-12_202100/nerfstudio_models/step-00
+0349000.ckpt
+──────────────────────────────────────────────────────── Error ─────────────────────────────────────────────────────────
+                                        Could not find rgb in the model outputs                                         
+Please set --rgb_output_name to one of: dict_keys(['rgb_coarse', 'rgb_fine', 'accumulation_coarse', 'accumulation_fine',
+                                             'depth_coarse', 'depth_fine'])                                             
+☁ Computing Point Cloud ☁                                            0% --:--

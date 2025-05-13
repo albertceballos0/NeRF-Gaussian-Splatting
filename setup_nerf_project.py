@@ -28,7 +28,8 @@ SBATCH_TRAIN_TEMPLATE = """#!/bin/bash
 conda activate nerfstudio
 
 # Entrenamiento
-ns-train {model} --data {data_path} --output-dir {output_path} {extra_train_args} {data_type}
+ns-train {model} --data {data_path} --output-dir {output_path} {extra_train_args} --pipeline.datamanager.train-num-rays-per-batch 16384
+ {data_type}
 
 conda deactivate
 """
