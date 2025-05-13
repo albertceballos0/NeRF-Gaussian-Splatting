@@ -12,7 +12,7 @@
 conda activate nerfstudio
 
 # Entrenamiento
-ns-train vanilla-nerf --data /hhome/aceballosa/NeRF-Gaussian-Splatting/datasets/dnerf/trex --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_16 --optimizers.fields.optimizer.lr 0.001 --pipeline.model.num-coarse-samples 96 --pipeline.model.num-importance-samples 128 --pipeline.model.enable-temporal-distortion False --pipeline.datamanager.train-num-rays-per-batch 16384
+ns-train vanilla-nerf --data /hhome/aceballosa/NeRF-Gaussian-Splatting/datasets/dnerf/trex --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_16 --optimizers.fields.optimizer.lr 0.0001 --pipeline.model.num-coarse-samples 96 --pipeline.datamanager.train-num-rays-per-batch 16384 --max-num-iterations 10000  --pipeline.datamanager.train-num-rays-per-batch 16384
  dnerf-data
 
 conda deactivate
