@@ -11,8 +11,10 @@
 
 conda activate nerfstudio
 
-ns-export pointcloud --load-config /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_01/trex/vanilla-nerf/2025-05-13_183643/config.yml --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/exports/trex/vanilla-nerf/2025-05-13_183643   --num-points 1000000 --remove-outliers False --normal-method open3d --save-world-frame False 
+ns-export pointcloud --load-config /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_01/trex/vanilla-nerf/2025-05-13_183643/config.yml --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/exports/trex/vanilla-nerf/2025-05-13_183643   --num-points 1000000 --remove-outliers False --normal-method open3d --save-world-frame False --rgb_output_name rgb_fine
 
-ns-export poisson --load-config /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_01/trex/vanilla-nerf/2025-05-13_183643/config.yml --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/exports/trex/vanilla-nerf/2025-05-13_183643   --num-points 1000000 --remove-outliers False --normal-method open3d 
+
+ns-export poisson --load-config /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_01/trex/vanilla-nerf/2025-05-13_183643/config.yml --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/exports/trex/vanilla-nerf/2025-05-13_183643   --num-points 1000000 --remove-outliers False --normal-method open3d --rgb_output_name rgb_fine
+
 
 conda deactivate
