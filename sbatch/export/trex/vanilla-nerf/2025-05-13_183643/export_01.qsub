@@ -1,0 +1,18 @@
+#!/bin/bash
+#SBATCH -n 4
+#SBATCH -N 1
+#SBATCH -D /tmp
+#SBATCH -t 2-00:00
+#SBATCH -p dcca40
+#SBATCH --mem 8192
+#SBATCH --gres gpu:1
+#SBATCH -o export_%u_%j.out
+#SBATCH -e export_%u_%j.err
+
+conda activate nerfstudio
+
+ns-export pointcloud --load-config /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_01/trex/vanilla-nerf/2025-05-13_183643/config.yml --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/exports/trex/vanilla-nerf/2025-05-13_183643   --num-points 1000000 --remove-outliers False --normal-method open3d --save-world-frame False 
+
+ns-export poisson --load-config /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_01/trex/vanilla-nerf/2025-05-13_183643/config.yml --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/exports/trex/vanilla-nerf/2025-05-13_183643   --num-points 1000000 --remove-outliers False --normal-method open3d 
+
+conda deactivate
