@@ -11,7 +11,7 @@
 
 conda activate nerfstudio
 
-ns-export pointcloud --load-config /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_01/trex/vanilla-nerf/2025-05-13_183643/config.yml --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/exports/trex/vanilla-nerf/2025-05-13_183643 --normal-method none --rgb-output-name rgb_fine
+ns-export pointcloud --load-config /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_01/trex/vanilla-nerf/2025-05-13_183643/config.yml --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/exports/trex/vanilla-nerf/2025-05-13_183643 --normal-method open3d --rgb-output-name rgb_fine
 
 
 ns-export poisson --load-config /hhome/aceballosa/NeRF-Gaussian-Splatting/outputs/train_01/trex/vanilla-nerf/2025-05-13_183643/config.yml --output-dir /hhome/aceballosa/NeRF-Gaussian-Splatting/exports/trex/vanilla-nerf/2025-05-13_183643   
