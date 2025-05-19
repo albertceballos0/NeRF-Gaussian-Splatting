@@ -48,7 +48,7 @@ SBATCH_EXPORT_TEMPLATE = """#!/bin/bash
 conda activate {conda_env}
 
 ns-export pointcloud --load-config {config_path} --output-dir {export_path} \
-  --num-points {num_points} --remove-outliers {remove_outliers} --normal-method {normal_method} --save-world-frame {save_world_frame} {extra_export_args}
+  --num-points {num_points} --remove-outliers {remove_outliers} --save-world-frame {save_world_frame} --normal-method open3d --rgb-output-name rgb_fine --depth_output_name rgb_fine {extra_export_args}
 
 ns-export poisson --load-config {config_path} --output-dir {export_path} \
   --num-points {num_points} --remove-outliers {remove_outliers} --normal-method {normal_method} {extra_export_args}
