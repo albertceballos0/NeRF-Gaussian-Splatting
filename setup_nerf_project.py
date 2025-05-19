@@ -131,7 +131,7 @@ def main():
     parser = argparse.ArgumentParser(description="Gestor de entrenamientos y exports NeRF-Gaussian.")
     subparsers = parser.add_subparsers(dest="command")
 
-    create_parser = subparsers.add_parser("create", help="Crear entrenamiento")
+    create_parser = subparsers.add_parser("train", help="Crear entrenamiento")
     create_parser.add_argument("--dataset", required=True)
     create_parser.add_argument("--model", required=True)
     create_parser.add_argument("--data-type", choices=["dnerf", ""], default="")
